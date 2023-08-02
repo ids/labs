@@ -1,0 +1,16 @@
+name: Build and Deploy IDStudios Labs
+on: [workflow_dispatch]
+jobs:
+      
+  deploy-to-k3s:
+    needs: build-and-publish-docker-container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo snap install kubectl --classic
+      - shell: bash
+        env:
+          KUBECONFIGDATA: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
+        run: echo $KUBECONFIGDATA > ./kube-config
+      - run: cat ./kube-config
+      - run: kubectl --kubeconfig=./kube-config get pods --all-namespaces
