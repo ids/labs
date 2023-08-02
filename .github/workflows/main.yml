@@ -11,7 +11,7 @@ jobs:
           node-version: '18'
       - run: node --version
       - run: npm install -g http-server @vue/cli @vue/cli-service-global vite
-      - run: cd app && npm run build && cd ..
+      - run: cd app && npm install && npm run build && cd ..
       - shell: bash
         env:
           DOCKERHUB_USERNAME: ${{ secrets.IDSTUDIOS_DOCKERHUB_USER }}
