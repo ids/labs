@@ -24,7 +24,7 @@ function greet() {
 <template>
 
 <div class="pagezone">
-  <h2>Experimental II</h2>
+  <h2>Experimental III</h2>
   <h3>Stuff happens here with {{  name  }}</h3>
   <button @click="greet">Get Some</button>
 </div>
