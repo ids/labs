@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const name = ref('Vue.js')
 
-function greet(event) {
+function greet() {
   //alert(`Hello ${name.value}!`)
   // `event` is the native DOM event
   //if (event) {
@@ -24,7 +24,7 @@ function greet(event) {
 <template>
 
 <div class="pagezone">
-  <h2>Experimental</h2>
+  <h2>Experimental II</h2>
   <h3>Stuff happens here with {{  name  }}</h3>
   <button @click="greet">Get Some</button>
 </div>
