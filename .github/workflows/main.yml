@@ -20,11 +20,13 @@ jobs:
       - run: bash build.sh
       
   deploy-to-k3s:
+    needs: build-and-publish-docker-container
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: sudo snap install kubectl --classic
       - shell: bash
         env:
-          KUBECONFIG: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
-        run: kubectl get pods --all-namespaces
+          KUBECONFIGDATA: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
+        run: echo $KUBECONFIGDATA > ./kube-config
+      - run: kubectl --kubeconfig=./kube-config get pods --all-namespaces
