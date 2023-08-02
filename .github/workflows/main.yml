@@ -10,7 +10,7 @@ jobs:
         with:
           node-version: '18'
       - run: node --version
-      - run: npm install -g http-server @vue/cli @vue/cli-service-global vite
+      - run: npm install -g http-server @vue/cli @vue/cli-service-global
       - run: cd app && npm install && npm run build && cd ..
       - shell: bash
         env:
@@ -24,4 +24,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: sudo snap install kubectl --classic
-      - run: kubectl version --output=yaml
+      - run: kubectl version
