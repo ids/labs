@@ -10,7 +10,7 @@ jobs:
         with:
           node-version: '18'
       - run: node --version
-      - run: npm install -g http-server @vue/cli @vue/cli-service-global 
+      - run: npm install -g http-server @vue/cli @vue/cli-service-global vite
       - run: cd app && npm run build && cd ..
       - shell: bash
         env:
