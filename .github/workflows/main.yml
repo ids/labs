@@ -10,19 +10,18 @@ jobs:
         with:
           node-version: '18'
       - run: node --version
+      - run: npm install -g http-server @vue/cli @vue/cli-service-global 
+      - run: cd app && npm run build && cd ..
       - shell: bash
         env:
           DOCKERHUB_USERNAME: ${{ secrets.IDSTUDIOS_DOCKERHUB_USER }}
           DOCKERHUB_PASSWORD: ${{ secrets.IDSTUDIOS_DOCKERHUB_PASSWORD }}
         run: echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin   
-      - run: cd app && npm run build && cd ..
       - run: bash build.sh
       
   deploy-to-k3s:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: node --version
+      - run: sudo snap install kubectl --classic
+      - run: kubectl version --output=yaml
