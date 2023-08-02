@@ -23,5 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - shell: bash
+        env:
+          KUBECONFIG: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
       - run: sudo snap install kubectl --classic
-      - run: kubectl version
+      - run: kubectl get pods --all-namespaces
