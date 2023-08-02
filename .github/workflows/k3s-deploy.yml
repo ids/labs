@@ -1,9 +1,7 @@
 name: K3s Deploy
 on: [workflow_dispatch]
 jobs:
-      
   deploy-to-k3s:
-    needs: build-and-publish-docker-container
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
