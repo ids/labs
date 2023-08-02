@@ -9,6 +9,5 @@ jobs:
       - shell: bash
         env:
           KUBECONFIGDATA: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
-        run: echo $KUBECONFIGDATA > ./kube-config
-      - run: cat ./kube-config
+        run: echo "$KUBECONFIGDATA" > ./kube-config
       - run: kubectl --kubeconfig=./kube-config get pods --all-namespaces
