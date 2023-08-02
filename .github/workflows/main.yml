@@ -10,6 +10,12 @@ jobs:
         with:
           node-version: '18'
       - run: node --version
+      - shell: bash
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.IDSTUDIOS_DOCKERHUB_USER }}
+          DOCKERHUB_PASSWORD: ${{ secrets.IDSTUDIOS_DOCKERHUB_PASSWORD }}
+        run: echo "$DOCKERHUB_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin      
+      
   deploy-to-k3s:
     runs-on: ubuntu-latest
     steps:
