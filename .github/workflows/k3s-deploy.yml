@@ -1,4 +1,4 @@
-name: Build and Deploy IDStudios Labs
+name: K3s Deploy
 on: [workflow_dispatch]
 jobs:
       
