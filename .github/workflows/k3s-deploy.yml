@@ -11,4 +11,4 @@ jobs:
           KUBECONFIGDATA: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
         run: echo "$KUBECONFIGDATA" > ./kube-config
       - run: kubectl --kubeconfig=./kube-config get pods --all-namespaces
-      - run: kubectl --kubeconfig=./kube-config -n idstudios set image deployment/labs labs=idstudios/labs:latest
+      - run: kubectl --kubeconfig=./kube-config -n idstudios rollout restart deployment/labs
