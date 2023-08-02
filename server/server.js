@@ -10,5 +10,5 @@ app.get('/api', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening on port: ${port}`)
 })

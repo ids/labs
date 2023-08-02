@@ -1,4 +1,4 @@
-#! /env/sh
+#! /bin/bash
 
 docker build . -t idstudios/labs
 
