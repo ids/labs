@@ -2,7 +2,7 @@
 name: Build and Deploy IDStudios Labs
 on: [push]
 jobs:
-  build-docker-container:
+  build-and-publish-docker-container:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,6 +15,7 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.IDSTUDIOS_DOCKERHUB_USER }}
           DOCKERHUB_PASSWORD: ${{ secrets.IDSTUDIOS_DOCKERHUB_PASSWORD }}
         run: echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin      
+      - run: bash build.sh
       
   deploy-to-k3s:
     runs-on: ubuntu-latest
