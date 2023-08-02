@@ -1,0 +1,34 @@
+
+name: Build and Deploy IDStudios Labs
+on: [push]
+jobs:
+  build-and-publish-docker-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: node --version
+      - run: npm install -g http-server @vue/cli @vue/cli-service-global
+      - run: cd app && npm install && npm run build && cd ..
+      - shell: bash
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.IDSTUDIOS_DOCKERHUB_USER }}
+          DOCKERHUB_PASSWORD: ${{ secrets.IDSTUDIOS_DOCKERHUB_PASSWORD }}
+        run: echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin   
+      - run: bash build.sh
+      
+  deploy-to-k3s:
+    needs: build-and-publish-docker-container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo snap install kubectl --classic
+      - shell: bash
+        env:
+          KUBECONFIGDATA: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
+        run: echo "$KUBECONFIGDATA" > ./kube-config
+      - run: kubectl --kubeconfig=./kube-config get pods --all-namespaces
+      - run: kubectl --kubeconfig=./kube-config -n idstudios rollout restart deployment/labs
+

@@ -1,0 +1,14 @@
+name: K3s Deploy
+on: [workflow_dispatch]
+jobs:
+  deploy-to-k3s:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo snap install kubectl --classic
+      - shell: bash
+        env:
+          KUBECONFIGDATA: ${{ secrets.IDSTUDIOS_KUBECONFIG }}
+        run: echo "$KUBECONFIGDATA" > ./kube-config
+      - run: kubectl --kubeconfig=./kube-config get pods --all-namespaces
+      - run: kubectl --kubeconfig=./kube-config -n idstudios rollout restart deployment/labs
