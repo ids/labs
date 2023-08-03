@@ -10,6 +10,7 @@ on:
       - '.devcontainer/**'
       - '.vscode/**'
       - 'build.sh'
+  workflow_dispatch:
 jobs:
   build-and-publish-docker-container:
     runs-on: ubuntu-latest
