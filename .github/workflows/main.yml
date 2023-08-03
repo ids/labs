@@ -3,7 +3,7 @@ name: Build and Deploy IDStudios Labs
 on: 
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - '**/README.md'
       - '.github/workflows/**'
