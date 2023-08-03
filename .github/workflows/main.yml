@@ -1,6 +1,15 @@
 
 name: Build and Deploy IDStudios Labs
-on: [push]
+on: 
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/README.md'
+      - '.github/workflows/**'
+      - '.devcontainer/**'
+      - '.vscode/**'
+      - 'build.sh'
 jobs:
   build-and-publish-docker-container:
     runs-on: ubuntu-latest
