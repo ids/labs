@@ -1,4 +1,4 @@
-name: K3s Deploy
+name: K3s Test
 on: [workflow_dispatch]
 jobs:
   deploy-to-k3s:
